@@ -1,4 +1,4 @@
-package com.efundae.moviles.nivel4.ud3.reto6.ui.features.tarea
+package com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas
 
 sealed interface TareaEvent {
     data class onGetTarea(val id: Int) : TareaEvent

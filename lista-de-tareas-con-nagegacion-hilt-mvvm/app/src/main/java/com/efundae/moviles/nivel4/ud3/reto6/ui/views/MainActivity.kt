@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.efundae.moviles.nivel4.ud3.reto6.ui.features.tarea.ListaTareasViewModel
-import com.efundae.moviles.nivel4.ud3.reto6.ui.features.tarea.ListaTareasScreen
+import androidx.navigation.compose.rememberNavController
+import com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas.ListaTareasViewModel
+import com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas.ListaTareasScreen
+import com.efundae.moviles.nivel4.ud3.reto6.ui.navigation.NavHostPrincipal
 import com.pmdm.proyectobase2425.ui.theme.TareasTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,17 +21,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val vm : ListaTareasViewModel by viewModels()
         setContent {
+            val vm: ListaTareasViewModel by viewModels()
+            val navController = rememberNavController()
             TareasTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ListaTareasScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        listaTareasVm = vm.listaTareasState,
-                        onTareaEvent = vm::onTareaEvent,
-                        tareaSeleccionada = vm.tareaSeleccionada
-                    )
-                }
+                NavHostPrincipal(
+                    navController = navController,
+                    listaTareasViewModel = vm
+                )
             }
         }
     }
