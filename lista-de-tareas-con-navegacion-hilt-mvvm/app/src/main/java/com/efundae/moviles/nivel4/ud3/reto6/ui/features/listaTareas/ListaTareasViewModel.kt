@@ -14,27 +14,29 @@ import javax.inject.Inject
 class ListaTareasViewModel @Inject constructor(
     private val repository: TareaRepository
 ) : ViewModel() {
-
-    var listaTareasState by mutableStateOf(cargarTareas())
-    var tareaSeleccionada: TareaUiState? by mutableStateOf(TareaUiState())
+    var listaTareasState by mutableStateOf(value = cargarTareas())
+    var tareaSeleccionada: TareaUiState by mutableStateOf(TareaUiState())
     private fun cargarTareas() = repository.get().map { it.toTareaUiState() }.toMutableList()
     fun onTareaEvent(tareaEvent: TareaEvent) {
         when (tareaEvent) {
-            is TareaEvent.onGetTarea -> {
-                tareaSeleccionada = repository.get(tareaEvent.id)?.toTareaUiState()
+            is TareaEvent.OnSetTareaSeleccionada -> {
+                repository.get(tareaEvent.id)?.let { tareaSeleccionada = it.toTareaUiState() }
             }
-            is TareaEvent.onInsertTarea -> {
+            is TareaEvent.OnGetTarea -> {
+                repository.get(tareaEvent.id)?.let { tareaSeleccionada = it.toTareaUiState() }
+            }
+            is TareaEvent.OnInsertTarea -> {
                 repository.insert(tareaEvent.tareaUiState.toTarea())
-                cargarTareas()
+                listaTareasState = cargarTareas()
             }
-            is TareaEvent.onUpdate -> {
-                repository.update(tareaEvent.tareaUiState.toTarea())
-                cargarTareas()
-            }
-            is TareaEvent.onDeleteTarea -> {
-                repository.delete(tareaEvent.tareaUiState.toTarea())
-                cargarTareas()
+            is TareaEvent.OnDeleteTareas -> {
+                repository.delete()
+                listaTareasState = cargarTareas()
             }
         }
+    }
+
+    fun getTarea(id: Int): TareaUiState? {
+        return repository.get(id)?.toTareaUiState()
     }
 }

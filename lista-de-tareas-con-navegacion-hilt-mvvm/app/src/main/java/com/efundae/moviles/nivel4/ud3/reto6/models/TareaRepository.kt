@@ -10,6 +10,5 @@ class TareaRepository @Inject constructor(
     fun get() = dao.get().map { it.toTarea() }.toMutableList()
     fun get(id: Int) = dao.get(id)?.toTarea()
     fun insert(tarea: Tarea) = dao.insert(tareaMock = tarea.toTareaMock())
-    fun update(tarea: Tarea) = dao.update(tareaMock = tarea.toTareaMock())
-    fun delete(tarea: Tarea) = dao.delete(tareaMock = tarea.toTareaMock())
+    fun delete() = dao.delete()
 }

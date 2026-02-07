@@ -6,8 +6,8 @@ import java.time.LocalDate
 
 data class TareaUiState(
     val id: Int = 0,
-    val titulo: String = "",
-    val descripcion: String = "",
+    val titulo: String = "Placeholder",
+    val descripcion: String = "Placeholder",
     val fecha: LocalDate = LocalDate.now(),
     val completada: Boolean = false
 )

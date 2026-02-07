@@ -8,20 +8,21 @@ import com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas.ListaTareasV
 @Composable
 fun NavHostPrincipal(
     navController: NavHostController,
-    listaTareasViewModel: ListaTareasViewModel
+    listaTareasVM: ListaTareasViewModel
 ) {
     NavHost(
         navController = navController,
         startDestination = ListaTareasRoute
     ) {
         listaTareasDestination(
-            onIrADetallesTarea = { mensaje ->
-                navController.navigate(route = DetallesTareaRoute(mensaje))
+            onIrADetallesTarea = {
+                navController.navigate(route = DetallesTareaRoute(id = it))
             },
-            listaTareasVM = listaTareasViewModel
+            listaTareasVM = listaTareasVM
         )
-        detallesTareaDestination {
-            navController.popBackStack()
-        }
+        detallesTareaDestination(
+            getTarea = listaTareasVM::getTarea,
+            onIrAtras = { navController.popBackStack() }
+        )
     }
 }

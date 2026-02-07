@@ -4,21 +4,24 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.efundae.moviles.nivel4.ud3.reto6.ui.features.detallesTarea.DetallesTarea
+import com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas.TareaUiState
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DetallesTareaRoute(
-    val mensaje : String
-)
+data class DetallesTareaRoute(val id: Int)
 
 fun NavGraphBuilder.detallesTareaDestination(
-    onIrAtras : () -> Unit
+    getTarea: (Int) -> TareaUiState?,
+    onIrAtras: () -> Unit,
 ) {
     composable<DetallesTareaRoute> { backStackEntry ->
         val route = backStackEntry.toRoute<DetallesTareaRoute>()
-        DetallesTarea(
-            mensaje = route.mensaje,
-            onIrAtras = onIrAtras
-        )
+        val tarea = getTarea(route.id)
+        if (tarea != null) {
+            DetallesTarea(
+                onIrAtras = onIrAtras,
+                tareaSeleccionada = tarea
+            )
+        }
     }
 }
