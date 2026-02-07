@@ -23,7 +23,7 @@ class AppModule {
     @Singleton
     fun provideMiRepositorio(
         tareaDaoMock: TareaDaoMock
-    ): TareaRepository = TareaRepository(tareaDaoMock)
+    ): TareaRepository = TareaRepository(dao = tareaDaoMock)
 
     @Provides
     @Singleton

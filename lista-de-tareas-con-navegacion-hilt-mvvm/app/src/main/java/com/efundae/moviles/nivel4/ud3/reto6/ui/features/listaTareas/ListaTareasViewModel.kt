@@ -15,14 +15,11 @@ class ListaTareasViewModel @Inject constructor(
     private val repository: TareaRepository
 ) : ViewModel() {
     var listaTareasState by mutableStateOf(value = cargarTareas())
-    var tareaSeleccionada: TareaUiState by mutableStateOf(TareaUiState())
+    var tareaSeleccionada: TareaUiState by mutableStateOf(value = TareaUiState())
     private fun cargarTareas() = repository.get().map { it.toTareaUiState() }.toMutableList()
     fun onTareaEvent(tareaEvent: TareaEvent) {
         when (tareaEvent) {
             is TareaEvent.OnSetTareaSeleccionada -> {
-                repository.get(tareaEvent.id)?.let { tareaSeleccionada = it.toTareaUiState() }
-            }
-            is TareaEvent.OnGetTarea -> {
                 repository.get(tareaEvent.id)?.let { tareaSeleccionada = it.toTareaUiState() }
             }
             is TareaEvent.OnInsertTarea -> {

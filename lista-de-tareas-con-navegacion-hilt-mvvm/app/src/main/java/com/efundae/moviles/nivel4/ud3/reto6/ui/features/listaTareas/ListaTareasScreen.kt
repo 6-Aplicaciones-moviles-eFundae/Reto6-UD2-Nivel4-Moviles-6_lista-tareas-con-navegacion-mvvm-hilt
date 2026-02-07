@@ -109,9 +109,9 @@ fun ListaTareasScreen(
                                 .fillMaxWidth()
                                 .padding(all = 3.dp)
                                 .combinedClickable(
-                                    onClick = { onTareaEvent(TareaEvent.OnGetTarea(elemento.id)) },
+                                    onClick = { onTareaEvent(TareaEvent.OnSetTareaSeleccionada(elemento.id)) },
                                     onLongClick = {
-                                        onTareaEvent(TareaEvent.OnGetTarea(elemento.id))
+                                        onTareaEvent(TareaEvent.OnSetTareaSeleccionada(elemento.id))
                                         onIrADetallesTarea(elemento.id)
                                     }
                                 )

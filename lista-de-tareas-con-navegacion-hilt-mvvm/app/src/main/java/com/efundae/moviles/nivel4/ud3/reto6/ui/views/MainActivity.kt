@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.navigation.compose.rememberNavController
 import com.efundae.moviles.nivel4.ud3.reto6.ui.features.listaTareas.ListaTareasViewModel
 import com.efundae.moviles.nivel4.ud3.reto6.ui.navigation.NavHostPrincipal
-import com.pmdm.proyectobase2425.ui.theme.TareasTheme
+import com.efundae.moviles.nivel4.ud3.reto6.ui.theme.TareasTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
